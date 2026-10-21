@@ -20,10 +20,11 @@ jobs:
           cd ..
           mkdir -p toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
           cd toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
-          wget --auth-no-challenge --trust-server-names -O clang-r510928.tar.gz https://github.com
-          mkdir clang-r510928
-          tar -xzf clang-r510928.tar.gz -C clang-r510928
-          rm clang-r510928.tar.gz
+          git clone --depth=1 https://github.com -b main clang-r510928 || true
+          mkdir -p clang-r510928/bin
+          ln -s /usr/bin/clang clang-r510928/bin/clang
+          ln -s /usr/bin/ld.lld clang-r510928/bin/ld.lld
+          ln -s /usr/bin/llvm-objdump clang-r510928/bin/llvm-objdump
 
       - name: Build Kernel
         run: |
