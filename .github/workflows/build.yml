@@ -20,7 +20,15 @@ jobs:
           cd ..
           mkdir -p toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
           cd toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
-          git clone --depth=1 https://googlesource.com -b main clang-r510928
+          curl -LO https://githubusercontent.com
+          CLANG_URL=$(cat Clang-main-link.txt | grep "clang-r510928" | head -n 1)
+          if [ -z "$CLANG_URL" ]; then
+            CLANG_URL="https://github.com"
+          fi
+          curl -LO "$CLANG_URL"
+          mkdir clang-r510928
+          tar -xzf clang-r510928.tar.gz -C clang-r510928
+          rm clang-r510928.tar.gz
 
       - name: Build Kernel
         run: |
