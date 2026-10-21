@@ -15,6 +15,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev libgcc-s1
 
+      - name: Setup Samsung Clang Toolchain
+        run: |
+          cd ..
+          mkdir -p toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
+          cd toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
+          curl -LO https://googlesource.com
+          mkdir clang-r510928
+          tar -xzf clang-r510928.tar.gz -C clang-r510928
+          rm clang-r510928.tar.gz
+
       - name: Build Kernel
         run: |
           chmod +x build/build.sh
