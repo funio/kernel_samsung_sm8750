@@ -20,10 +20,7 @@ jobs:
           cd ..
           mkdir -p toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
           cd toolchain_samsung_sm8750/kernel_platform/prebuilts/clang/host/linux-x86
-          curl -LO https://googlesource.com
-          mkdir clang-r510928
-          tar -xzf clang-r510928.tar.gz -C clang-r510928
-          rm clang-r510928.tar.gz
+          git clone --depth=1 https://github.com/msft-mirror-aosp/platform.prebuilts.clang.host.linux-x86 -b android15-release clang-r510928
 
       - name: Build Kernel
         run: |
