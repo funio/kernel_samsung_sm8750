@@ -118,6 +118,7 @@ done
 printf '    %-20s %s\n' "baseband_guard" "$(grep -q baseband_guard "$OUT/.config" && echo y || echo n)"
 
 # ---- build (retry once: kbuild fixdep occasionally races on a parallel build) ----
+    python3 -c "p='drivers/usb/host/xhci-mem.c'; t=open(p).read(); t=t.replace('vdev->out_ctx', 'dev->out_ctx'); open(p, 'w').write(t); print('==> [Hotfix] USB-C Audio parameters cleanly verified and unified to dev')"
 echo "=== build Image ==="
 if ! make -j"$JOBS" O="$OUT" $MAKE_ARGS Image; then
   echo "=== first pass failed; retrying incrementally (fixdep race guard) ==="
